@@ -5,57 +5,47 @@ using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
-    private void Update()
-    {
-        if (isPlayerLose)
-        {
-            OpenLosePanel();
-        }
-        if (isPlayerWin)
-        {
-            OpenWinPanel();
-        }
-    }
-
     public static MenuManager instance;
     private void Awake()
     {
         instance = this;
+
     }
-    public GameObject losePanel;
-    public bool isPlayerLose;
-    public void OpenLosePanel()
+    public void OpenMainMenu(bool isOpen)
     {
-        Time.timeScale = 0f;
-        losePanel.SetActive(true);        
-    }
-    public GameObject WinPanel;
-    public bool isPlayerWin;
-    public void OpenWinPanel()
-    {
-        Time.timeScale = 0f;
-        WinPanel.SetActive(true);
-    }
-    public void CloseLosePanel()
-    {
-            losePanel.SetActive(false);        
-    }
-    public SpawnerBlock spawnerBlock;
-    public block[] _block;
-    public void RestartGame()
-    {
-        CloseLosePanel();
-        isPlayerLose = false;
-        isPlayerWin = false;
-        Debug.Log(isPlayerLose);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        Time.timeScale = 1f;
-        foreach (var _blocks in _block)
+        if (isOpen)
         {
-            _blocks.fallTime = 1f;
+            SceneManager.LoadScene("MainMenu");
         }
-        SpawnerBlock.instance.SpawnNewPrefab();
-        //spawnerBlock.SpawnNewPrefab();
+        else
+        {
+        }
+    }
+    public void OpenLevelMenu(bool isOpen)
+    {
+        if (isOpen)
+        {
+            SceneManager.LoadScene("LevelMenu");
+        }
+        else
+        {
+            SceneManager.LoadScene("MainMenu");
+        }
+    }
+    public GameObject settingMenu;
+    public void OpenSettingMenu(bool isOpen)
+    {
+        if (isOpen)
+        {
+            settingMenu.SetActive(true);
+
+        }
+        else
+        {
+            settingMenu.SetActive(false);
+
+        }
     }
 
+    
 }

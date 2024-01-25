@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4882464844670936274
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6017035443229940337}
+  - component: {fileID: 7986394459689038158}
+  m_Layer: 0
+  m_Name: Skill_ORi
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6017035443229940337
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4882464844670936274}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7986394459689038158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4882464844670936274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d4ae00b25b6aae4aaee37042f24a750, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _block:
+  - {fileID: 8803776701321702114, guid: 54fcb909f5e06e047b6a368f9335f9ea, type: 3}
+  - {fileID: 2922165426960472033, guid: 19531e1f7e9393045b34352c85788fa2, type: 3}
+  - {fileID: 4781009337353462339, guid: 49fffe3c8cc0bef4dae6a1d550cbef6f, type: 3}
+  - {fileID: 7577449157114881350, guid: eb8dc3efc46855c4288dafdf79253785, type: 3}
+  - {fileID: 6351302272418119165, guid: 8ee3eccd47d8dab459324b89be59ab0c, type: 3}
+  - {fileID: 7444504814326739942, guid: adc6374259ebcde44995bd4426b6a1fd, type: 3}
+  - {fileID: 9209842822311393591, guid: 1b387dc5f9e799c439f72355f61c6f06, type: 3}
+  - {fileID: 4571213594062866896, guid: 4a9e33f6013edca45bad3c1ba79cfa32, type: 3}
+  BoosterArea:
+  - {fileID: 6433220708451404652, guid: 65bf6855a8ad75a4085090633ef5c3fb, type: 3}
+  - {fileID: 2157341847033037950, guid: 63c0d7d20ef26734ba6e53f28b3f41f7, type: 3}
+  - {fileID: 7886224771561771809, guid: 21ea5c10ce5ee674e8876815def785c3, type: 3}
+  - {fileID: 421377875905825168, guid: 056a78190b5c2cb4aa473a4e419d9297, type: 3}
+  prefabSmoke: {fileID: 6813416509558619124, guid: 3b7f2c753d435d647a80f1f047a113e3, type: 3}
+  posBooster: {fileID: 0}

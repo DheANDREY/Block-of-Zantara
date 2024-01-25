@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8803776701321702115}
   - component: {fileID: 8803776701321702114}
+  - component: {fileID: 479523735550295336}
   m_Layer: 0
   m_Name: Block-1
   m_TagString: Block
@@ -24,6 +25,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8803776701321702117}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -34,7 +36,6 @@ Transform:
   - {fileID: 3020084580191986917}
   - {fileID: 3020084580179220023}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8803776701321702114
 MonoBehaviour:
@@ -50,13 +51,50 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationPoint: {x: 0, y: 0, z: 0}
   fallTime: 1
+  boost: 1
+  isSwiped: 0
+  isBoostDownSwiped: 0
+  effectBlock: {fileID: 7823327091382468809, guid: 3f928aed34e69364a95a990642d12caf, type: 3}
+  blockPosVFX: {fileID: 8803776701321702117}
+--- !u!50 &479523735550295336
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8803776701321702117}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 0
 --- !u!1001 &3020084581146098904
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 8803776701321702115}
     m_Modifications:
+    - target: {fileID: 1763655622774021769, guid: 04e6103e1dbdf5345b888f3f792a0c8b, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 0.81
+      objectReference: {fileID: 0}
     - target: {fileID: 3884291004780210904, guid: 04e6103e1dbdf5345b888f3f792a0c8b, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
       value: 0.81
@@ -126,6 +164,9 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 04e6103e1dbdf5345b888f3f792a0c8b, type: 3}
 --- !u!4 &8803776700209100497 stripped
 Transform:
@@ -137,8 +178,13 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 8803776701321702115}
     m_Modifications:
+    - target: {fileID: 1763655622774021769, guid: 04e6103e1dbdf5345b888f3f792a0c8b, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 0.81
+      objectReference: {fileID: 0}
     - target: {fileID: 3884291004780210904, guid: 04e6103e1dbdf5345b888f3f792a0c8b, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
       value: 0.81
@@ -208,6 +254,9 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 04e6103e1dbdf5345b888f3f792a0c8b, type: 3}
 --- !u!4 &3020084579808125854 stripped
 Transform:
@@ -219,8 +268,13 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 8803776701321702115}
     m_Modifications:
+    - target: {fileID: 1763655622774021769, guid: 04e6103e1dbdf5345b888f3f792a0c8b, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 0.81
+      objectReference: {fileID: 0}
     - target: {fileID: 3884291004780210904, guid: 04e6103e1dbdf5345b888f3f792a0c8b, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
       value: 0.81
@@ -290,6 +344,9 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 04e6103e1dbdf5345b888f3f792a0c8b, type: 3}
 --- !u!4 &3020084580179220023 stripped
 Transform:
@@ -301,8 +358,13 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 8803776701321702115}
     m_Modifications:
+    - target: {fileID: 1763655622774021769, guid: 04e6103e1dbdf5345b888f3f792a0c8b, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 0.81
+      objectReference: {fileID: 0}
     - target: {fileID: 3884291004780210904, guid: 04e6103e1dbdf5345b888f3f792a0c8b, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
       value: 0.81
@@ -372,6 +434,9 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 04e6103e1dbdf5345b888f3f792a0c8b, type: 3}
 --- !u!4 &3020084580191986917 stripped
 Transform:

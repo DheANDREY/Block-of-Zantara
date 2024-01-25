@@ -16,11 +16,12 @@ public class HpEnemyManager : MonoBehaviour
     }
     private void Start()
     {
-        Debug.Log(currentHP);
+       // Debug.Log(currentHP);
     }
     private void Update()
     {
         UpdateUI();
+        
         //Debug.Log(currentHP);
     }
     public void SetMaxHP(float value)
@@ -39,8 +40,9 @@ public class HpEnemyManager : MonoBehaviour
     private void UpdateUI()
     {
         if (maxHP > 0)
-        {
+        {            
             hpFill.fillAmount = currentHP / maxHP;
+            //Debug.Log(currentHP);
         }
     }
     public GameObject skillLightON;

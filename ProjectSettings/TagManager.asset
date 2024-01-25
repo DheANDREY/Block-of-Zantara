@@ -8,6 +8,12 @@ TagManager:
   - Block
   - Detector
   - Boss
+  - Audio
+  - enemy
+  - FxTemporaire
+  - BGM
+  - SFX
+  - PosBooster
   layers:
   - Default
   - TransparentFX
