@@ -11,9 +11,9 @@ public class block : MonoBehaviour
     public static int width = 10;
     public static Transform[,] grid = new Transform[width, height];
     public static bool playSFXHit, playSFXDmg, isFreeze;
-    public float boost = 1;
+    private float boost = 1;
 
-    public bool isSwiped;
+    private bool isSwiped;
 
 
     public static block instance;
@@ -73,8 +73,8 @@ public class block : MonoBehaviour
         {
             MoveLeft(); MoveRight(); MoveUp();
             if (isSwiped)
-            {
-                MoveLeft2();    MoveRight2();   MoveUp2(); MoveDown2();                
+            {                
+                    MoveLeft2(); MoveRight2(); MoveUp2(); MoveDown2();                 
             }
             //SwipeDetection2.instance.DetectSwipe();
         }        
@@ -133,7 +133,6 @@ public class block : MonoBehaviour
             transform.position += new Vector3(1, 0, 0); //Debug.Log("Current PosX :" + transform.position);
             if (!ValidMove())
             {
-
                 transform.position -= new Vector3(1, 0, 0);
             }
         }
@@ -163,37 +162,56 @@ public class block : MonoBehaviour
 
     public void MoveRight2()
     {
+        if (!isFreeze)
+        {
             transform.position += new Vector3(1, 0, 0); //Debug.Log("Current PosX :" + transform.position);
             if (!ValidMove())
             {
-
                 transform.position -= new Vector3(1, 0, 0);
             }
-        isSwiped = false;
+            isSwiped = false;
+        }
+        else
+        {
+            Debug.Log("Freeze");
+        }
     }
     public void MoveLeft2()
-    {        
+    {
+        if (!isFreeze)
+        {
             transform.position += new Vector3(-1, 0, 0);
             if (!ValidMove())
             {
                 transform.position -= new Vector3(-1, 0, 0);
             }
-        isSwiped = false;
+            isSwiped = false;
+        }
+        else
+        {
+            Debug.Log("Freeze");
+        }
     }
     public void MoveUp2()
-    {        
+    {
+        if (!isFreeze)
+        {
             transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, 1), 90);
             if (!ValidMove())
             {
                 transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, 1), -90);
             }
-        isSwiped = false;
+            isSwiped = false;
+        }
+        else
+        {
+            Debug.Log("Freeze");
+        }
     }
     public bool isBoostDownSwiped;
     public void MoveDown2()
     {        
         isBoostDownSwiped = true;
-        transform.position += new Vector3(0, -1, 0);
         isSwiped = false;
     }
 

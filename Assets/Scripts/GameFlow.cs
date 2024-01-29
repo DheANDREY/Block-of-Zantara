@@ -120,7 +120,7 @@ public class GameFlow : MonoBehaviour
         AudioFile_Handler.instance.PlayBGM_Utama(true);
         foreach (var _blocks in _block)
         {
-            _blocks.fallTime = 1f;
+            _blocks.fallTime = 1.2f;
         }
         SpawnerBlock.instance.SpawnNewBlock();
     }
@@ -138,5 +138,36 @@ public class GameFlow : MonoBehaviour
         PlayerPrefs.SetInt("HighestLVL", LevelManager.highestLvl);
         AudioFile_Handler.instance.PlayBGM_Utama(true);
         MenuManager.instance.OpenLevelMenu(true);
+    }
+    
+    public void ControllerMove(int i)
+    {
+        foreach (var _blocks in _block)
+        {
+            if (_blocks != null)
+            {
+                if (i == 1)
+                {
+                    //FindObjectOfType<block>().MoveRight2();
+                    Debug.Log("SwipeRight");
+                    //OnSwipe?.Invoke(Vector2.right);
+                    block.instance.MoveRight2();
+                }
+                else if (i == 2)
+                {                    
+                        FindObjectOfType<block>().MoveLeft2();
+                        //Debug.Log("After Boost");                    
+                }
+                else if (i == 3)
+                {
+                    //FindObjectOfType<block>().MoveUp2();
+                    block.instance.MoveUp2();
+                }
+                else
+                {
+
+                }
+            }
+        }
     }
 }

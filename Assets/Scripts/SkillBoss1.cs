@@ -25,6 +25,7 @@ public class SkillBoss1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Debug.Log(isMonsterSpawned);
         if (Input.GetKeyDown(KeyCode.B))
         {
             BoostFallBlock();
@@ -74,7 +75,7 @@ public class SkillBoss1 : MonoBehaviour
         {
             AnimAttackSkill(false);
             IconSkill(false);
-            _blocks.fallTime = 1f;
+            _blocks.fallTime = 1.2f;
         }
     }   
 
@@ -114,7 +115,7 @@ public class SkillBoss1 : MonoBehaviour
     private GameObject instantiatedSmoke;
     public void SpawnSmokeNextMove()
     {
-        instantiatedSmoke = Instantiate(prefabSmoke, new Vector3(0.879f, 13.579f, 0), Quaternion.identity);
+        instantiatedSmoke = Instantiate(prefabSmoke, new Vector3(1.2f, 14.2f, 0), Quaternion.identity);
         IconSkill(true);
         AnimAttackSkill(true);
         StartCoroutine(DestroySmoke(25));
@@ -177,7 +178,7 @@ public class SkillBoss1 : MonoBehaviour
         }
     }
 
-    public static bool isMonsterSpawned;
+    public static bool isMonsterSpawned = false;
     public void SpawnBlockMonster()
     {
         AnimAttackSkill(true);

@@ -56,7 +56,6 @@ MonoBehaviour:
   BoosterArea:
   - {fileID: 7886224771561771809, guid: 21ea5c10ce5ee674e8876815def785c3, type: 3}
   - {fileID: 421377875905825168, guid: 056a78190b5c2cb4aa473a4e419d9297, type: 3}
-  dropTime: 0.3
+  dropTime: 0.375
   prefabSmoke: {fileID: 6813416509558619124, guid: 3b7f2c753d435d647a80f1f047a113e3, type: 3}
   maxFreezeBlock: 3
-  posBooster: {fileID: 0}

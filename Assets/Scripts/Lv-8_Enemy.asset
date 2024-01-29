@@ -13,8 +13,6 @@ MonoBehaviour:
   m_Name: Lv-8_Enemy
   m_EditorClassIdentifier: 
   enemy:
-  - {fileID: 153889855559819840, guid: f2af9e03ccd6e8c419c901ce54a31faf, type: 3}
-  - {fileID: 153889855559819840, guid: f2af9e03ccd6e8c419c901ce54a31faf, type: 3}
   - {fileID: 111519994766586193, guid: 99d54603c7b2443459c15ba32a33f54e, type: 3}
-  - {fileID: 111519994766586193, guid: 99d54603c7b2443459c15ba32a33f54e, type: 3}
+  - {fileID: 2729275982225163089, guid: b31cff11a9ce57340a3916a9850bcfd1, type: 3}
   - {fileID: 2729275982225163089, guid: b31cff11a9ce57340a3916a9850bcfd1, type: 3}
