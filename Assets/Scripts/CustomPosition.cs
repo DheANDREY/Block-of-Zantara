@@ -13,6 +13,6 @@ public class CustomPosition : MonoBehaviour
 
     void Start()
     {
-        transform.position = SetPosBlock;
+        transform.localPosition = SetPosBlock;
     }
 }

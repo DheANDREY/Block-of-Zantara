@@ -59,3 +59,6 @@ MonoBehaviour:
   dropTime: 0.6
   prefabSmoke: {fileID: 6813416509558619124, guid: 3b7f2c753d435d647a80f1f047a113e3, type: 3}
   maxFreezeBlock: 1
+  maxSideFreeze: 2
+  counterMove: 0
+  counterRotate: 0

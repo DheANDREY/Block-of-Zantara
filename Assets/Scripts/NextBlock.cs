@@ -13,7 +13,7 @@ public class NextBlock : MonoBehaviour
     void Start()
     {
         randomIndex = Random.Range(0, nextPrefabBlock.Length-1);
-        Debug.Log("Spawner: " + randomIndex);
+        //Debug.Log("Spawner: " + randomIndex);
     }
     
     // Update is called once per frame
@@ -37,7 +37,7 @@ public class NextBlock : MonoBehaviour
             randomIndex = 8;
         }        
         //Debug.Log("Spawner Blocknya: " + randomIndex);
-        instantiatedPrefab = Instantiate(nextPrefabBlock[randomIndex], new Vector3(nextBlockSlot.position.x, (float)(nextBlockSlot.position.y - 0.35), 0), Quaternion.identity) as GameObject;
+        instantiatedPrefab = Instantiate(nextPrefabBlock[randomIndex], new Vector3(nextBlockSlot.localPosition.x, (float)(nextBlockSlot.localPosition.y - 0.35), 0), Quaternion.identity);
         instantiatedPrefab.transform.SetParent(transform);
     }
     private void changeBlock()

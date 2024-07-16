@@ -50,8 +50,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationPoint: {x: 0, y: 0, z: 0}
-  fallTime: 1.2
-  isSwiped: 0
+  fallTime: 0.8
+  playSFXHit: 0
+  playSFXDmg: 0
+  isFreeze: 0
+  isBlockSide: 0
+  isDoubleMove: 0
+  isLimitMove: 0
+  isLimitRotate: 0
+  isFreezeMoveOnly: 0
+  isFreezeRotateOnly: 0
+  countMove: 3
+  countRotate: 2
   isBoostDownSwiped: 0
   effectBlock: {fileID: 7823327091382468809, guid: 3f928aed34e69364a95a990642d12caf, type: 3}
   blockPosVFX: {fileID: 7444504814326739941}
@@ -152,7 +162,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: a231840c58a4bd84fb7bc111d2eb5c88, type: 3}
     - target: {fileID: 6036005129311357558, guid: 04e6103e1dbdf5345b888f3f792a0c8b, type: 3}
       propertyPath: m_SortingOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -234,7 +244,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: a231840c58a4bd84fb7bc111d2eb5c88, type: 3}
     - target: {fileID: 6036005129311357558, guid: 04e6103e1dbdf5345b888f3f792a0c8b, type: 3}
       propertyPath: m_SortingOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -316,7 +326,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: a231840c58a4bd84fb7bc111d2eb5c88, type: 3}
     - target: {fileID: 6036005129311357558, guid: 04e6103e1dbdf5345b888f3f792a0c8b, type: 3}
       propertyPath: m_SortingOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -398,7 +408,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: a231840c58a4bd84fb7bc111d2eb5c88, type: 3}
     - target: {fileID: 6036005129311357558, guid: 04e6103e1dbdf5345b888f3f792a0c8b, type: 3}
       propertyPath: m_SortingOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43a27de4e029dd44d90d7288ff6b7909, type: 3}
+  m_Name: Lv-6_Enemy
+  m_EditorClassIdentifier: 
+  enemy:
+  - {fileID: 8898566659909274713, guid: 12df7e1d6e59b664ab788e8bd58e7501, type: 3}
+  - {fileID: 111519994766586193, guid: 99d54603c7b2443459c15ba32a33f54e, type: 3}
+  - {fileID: 2729275982225163089, guid: b31cff11a9ce57340a3916a9850bcfd1, type: 3}
+  - {fileID: 4053360355903948209, guid: 19bc7a004bb6c1a47baed9adcfbba79a, type: 3}

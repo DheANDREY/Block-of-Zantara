@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using UnityEngine.InputSystem;
 using InputSystemTouchPhase = UnityEngine.InputSystem.TouchPhase;
 
@@ -10,7 +11,7 @@ public class block : MonoBehaviour
     public static int height = 13;
     public static int width = 10;
     public static Transform[,] grid = new Transform[width, height];
-    public static bool playSFXHit, playSFXDmg, isFreeze;
+    public bool playSFXHit, playSFXDmg, isFreeze, isBlockSide, isDoubleMove, isLimitMove, isLimitRotate, isFreezeMoveOnly, isFreezeRotateOnly;
     private float boost = 1;
 
     private bool isSwiped;
@@ -22,6 +23,7 @@ public class block : MonoBehaviour
         //inputManager = InputManager.Instance;
 
         instance = this;
+        
     }
     private void OnValidate()
     {
@@ -30,14 +32,38 @@ public class block : MonoBehaviour
 
     private BossController boss;
     private EnemyController enemy;
+    private ManaCharManager manaManager;
+    [SerializeField]private SurvivalFlow survivalF;
     private float currentFallSpeed;
     private void Start()
     {
         boss = GameObject.FindGameObjectWithTag("enemy").GetComponent<BossController>();
         enemy = GameObject.FindGameObjectWithTag("enemy").GetComponent<EnemyController>();
         sfx = GameObject.FindWithTag("SFX").GetComponent<SoundEffect>();
+        GameObject survivalObject = GameObject.FindGameObjectWithTag("survival");
+        if (survivalObject != null)
+        {
+            Debug.Log("Survival Mode");
+            survivalF = survivalObject.GetComponent<SurvivalFlow>();
+        }
+        else
+        {
+            Debug.Log("Adventure Mode");
+            manaManager = GameObject.FindGameObjectWithTag("mana").GetComponent<ManaCharManager>();
+        }
+        //GameObject manaObject = GameObject.FindGameObjectWithTag("mana");
+        //if (manaManager != null)
+        //{
+        //    manaManager = GameObject.FindGameObjectWithTag("mana").GetComponent<ManaCharManager>();
+        //}
+        //else
+        //{
+        //    Debug.Log("Mana Manager doesnt exist");
+        //}
+        //manaManager = GameObject.FindGameObjectWithTag("mana").GetComponent<ManaCharManager>();
 
         currentFallSpeed = fallTime;
+        //countRotate = 4;
     }
 
     private Vector2 startTouchPos, endTouchPos;
@@ -45,6 +71,7 @@ public class block : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         //if(Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         //{
         //    startTouchPos = Input.GetTouch(0).position;
@@ -57,29 +84,149 @@ public class block : MonoBehaviour
         //        MoveLeft();
         //    }
 
-        //    if (endTouchPos.x > startTouchPos.x)
-        //    {
-        //        MoveRight();
-        //    }
-        //}
+            //    if (endTouchPos.x > startTouchPos.x)
+            //    {
+            //        MoveRight();
+            //    }
+            //}
+            //if(Input.GetKeyDown(KeyCode.V))
+            //{
+            //    isBlockSide = true; Debug.Log("BlockSide:" + isBlockSide);
+            //}
+            //if (Input.GetKeyDown(KeyCode.O))
+            //{
+            //  ForceMoveToSide();
+            //}
+
 
             fallTime = fallTime / boost;
         if (isBoostDownSwiped)
         {
             fallTime = fallTime / 10;
-        }
-
-        if (!isFreeze)
-        {
-            MoveLeft(); MoveRight(); MoveUp();
-            if (isSwiped)
-            {                
-                    MoveLeft2(); MoveRight2(); MoveUp2(); MoveDown2();                 
-            }
-            //SwipeDetection2.instance.DetectSwipe();
         }        
 
-//===================== PRESS HOLD ========================================
+        //if (!isFreeze)
+        //{
+        //    if (countMove > 0)
+        //    {
+        //        if (!isDoubleMove)
+        //        {
+        //            MoveLeft(1); MoveRight(1);
+        //        }
+        //        else
+        //        {
+        //            MoveLeft(2); MoveRight(2);
+        //        }
+        //        if (countRotate > 0)
+        //        {
+        //            MoveUp();
+        //        }
+
+        //        if (isSwiped)
+        //        {
+        //            MoveLeft2(); MoveRight2(); MoveUp2(); MoveDown2();
+        //        }
+        //    }
+        //    else
+        //    {
+        //        if (!isLimitRotate)
+        //        {
+        //            MoveUp();
+        //        }
+        //        else
+        //        {
+        //            if (countRotate > 0)
+        //            {
+        //                MoveUp();
+
+        //            }
+        //            else
+        //            {
+        //                Debug.Log("Not Enough Chance");
+        //            }
+        //        }
+        //    }
+        //    //SwipeDetection2.instance.DetectSwipe();
+        //}        
+        //if (!isFreeze)
+        //{            
+        //    if (countMove > 0)
+        //    {
+        //        int moveValue = isDoubleMove ? 2 : 1;
+
+        //        MoveLeft(moveValue);
+        //        MoveRight(moveValue);
+
+        //        if (countRotate > 0 || !isLimitRotate)
+        //        {
+        //            MoveUp();
+        //        }
+
+        //        if (isSwiped)
+        //        {
+        //            MoveLeft2();
+        //            MoveRight2();
+        //            MoveUp2();
+        //            MoveDown2();
+        //        }
+        //    }
+        //    else if (!isLimitRotate || countRotate > 0)
+        //    {
+        //        MoveUp();
+        //    }
+        //    else
+        //    {
+        //        Debug.Log("Not Enough Chance");
+        //    }
+        //}
+            if (!isFreeze&&(!isFreezeMoveOnly && !isFreezeRotateOnly)) // Cek jika tidak ada pembekuan
+            {
+                if (countMove > 0)
+                {
+                    int moveValue = isDoubleMove ? 2 : 1;
+
+                    if (!isFreezeMoveOnly) // Jika pergerakan tidak dibekukan
+                    {
+                        MoveLeft(moveValue);
+                        MoveRight(moveValue);
+                        if (isSwiped)
+                        {
+                            MoveLeft2();
+                            MoveRight2();
+                        }
+                    }
+
+                    if ((countRotate > 0 || !isLimitRotate) && !isFreezeRotateOnly) // Jika rotasi tidak dibekukan
+                    {
+                        MoveUp();
+                        if (isSwiped)
+                        {
+                            MoveUp2();
+                        }
+                    }
+
+                    
+                }
+                else if (!isLimitRotate || countRotate > 0)
+                {
+                    if (!isFreezeRotateOnly) // Jika rotasi tidak dibekukan
+                    {
+                        MoveUp();
+                        if (isSwiped)
+                        {
+                            MoveUp2();
+                        }
+                    }
+                }
+                else
+                {
+                    Debug.Log("Not Enough Chance");
+                }
+            }       
+
+
+
+        //===================== PRESS HOLD ========================================
         if (Time.time - previousTime > (Input.GetKey(KeyCode.DownArrow) ? fallTime / 10 : fallTime))
         {            
             transform.position += new Vector3(0, -1, 0);
@@ -99,10 +246,55 @@ public class block : MonoBehaviour
                     //Debug.Log("Counter Freeze: " + SkillBoss1.counterFreeze);
                 }
 
+                if (!isBlockSide)
+                {
+                    AddToGrid();
+                }
+                else
+                {
+                    AddToGrid();
+                    SkillBoss1.freezeSideCounter++;
+                    Debug.Log("Counter Freeze: " + SkillBoss1.freezeSideCounter);
+                }
+
+                if (!isLimitMove)
+                {
+                    AddToGrid();
+                }
+                else
+                {
+                    AddToGrid();
+                    SkillBoss1.instance.counterMove++; //Debug.Log("Counter Move: " + SkillBoss1.instance.counterMove);
+                }
+
+                if (!isLimitRotate)
+                {
+                    AddToGrid();
+                }
+                else
+                {
+                    AddToGrid();
+                    SkillBoss1.instance.counterRotate++;    Debug.Log("Counter Rotate: " + SkillBoss1.instance.counterRotate);
+                }
+
+                if (!SkillChar.instance.isSlowdown)
+                {
+                    AddToGrid();
+                }
+                else
+                {
+                    AddToGrid();
+                    SkillChar.instance.blockCounter++;
+                }
+
                 //isSwiped = true;
                 CheckForLine();
                 this.enabled = false;
                 FindObjectOfType<SpawnerBlock>().SpawnNewBlock();                
+            }
+            if (isSwiped)
+            {
+                MoveDown2();
             }
         }
 
@@ -125,38 +317,114 @@ public class block : MonoBehaviour
         // ----------------------------------------------------------------------------------------------------------------------------------
     }
 
-
-    public void MoveRight()
+    public void ForceMoveToSide()
     {
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (SpawnerBlock.instance.numbBHole == 0 || SpawnerBlock.instance.numbBHole == 1)
         {
-            transform.position += new Vector3(1, 0, 0); //Debug.Log("Current PosX :" + transform.position);
-            if (!ValidMove())
+            //transform.position = new Vector3(1, transform.position.y, transform.position.z);
+            for (int i = 0; i < 9; i++)
             {
-                transform.position -= new Vector3(1, 0, 0);
+                transform.position += new Vector3(-1, 0, 0);
+                if (!ValidMove())
+                {
+                    transform.position -= new Vector3(-1, 0, 0);
+                }
+            }
+            //transform.position += new Vector3(-4, 0, 0);
+        }
+        else
+        {
+            //transform.position = new Vector3(8, transform.position.y, 0);
+            for (int i = 0; i < 9; i++)
+            {
+                transform.position += new Vector3(1, 0, 0);
+                if (!ValidMove())
+                {
+                    transform.position -= new Vector3(1, 0, 0);
+                }
+            }
+            //transform.position += new Vector3(4, 0, 0);
+        }
+    }
+
+    public int countMove=3, countRotate;
+    public void MoveRight(int move)
+    {
+        if (!isLimitMove)
+        {
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                transform.position += new Vector3(move, 0, 0); //Debug.Log("Current PosX :" + transform.position);
+                if (!ValidMove())
+                {
+                    transform.position -= new Vector3(move, 0, 0);
+                }
+            }
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                transform.position += new Vector3(move, 0, 0); //Debug.Log("Current PosX :" + transform.position);
+                if (!ValidMove())
+                {
+                    transform.position -= new Vector3(move, 0, 0);
+                }
+                countMove--;
             }
         }
     }
-    public void MoveLeft()
+    public void MoveLeft(int move)
     {
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        if (!isLimitMove)
         {
-            transform.position += new Vector3(-1, 0, 0);
-            if (!ValidMove())
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
-                transform.position -= new Vector3(-1, 0, 0);
+                transform.position += new Vector3(-move, 0, 0);
+                if (!ValidMove())
+                {
+                    transform.position -= new Vector3(-move, 0, 0);
+                }
+            }
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                transform.position += new Vector3(-move, 0, 0);
+                if (!ValidMove())
+                {
+                    transform.position -= new Vector3(-move, 0, 0);
+                }
+                countMove--;
             }
         }
     }
     public void MoveUp()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (!isLimitRotate)
         {
-            transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, 1), 90);
-            if (!ValidMove())
+            if (Input.GetKeyDown(KeyCode.UpArrow))
             {
-                transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, 1), -90);
+                transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, 1), 90);
+                if (!ValidMove())
+                {
+                    transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, 1), -90);
+                }
             }
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, 1), 90);
+                countRotate--;
+                if (!ValidMove())
+                {
+                    transform.RotateAround(transform.TransformPoint(rotationPoint), new Vector3(0, 0, 1), -90);
+                }
+            }
+            //countRotate--;
         }
     }
 
@@ -227,6 +495,19 @@ public class block : MonoBehaviour
             }
         }
     }
+
+    public void DeleteLowest()
+    {
+        for (int j = 0; j < width; j++)
+        {
+            if (grid[j, 0] != null)
+            {
+                Destroy(grid[j, 0].gameObject);
+                grid[j, 0] = null;
+            }
+        }
+        RowDown(0);
+    }
     bool HasLine(int i)
     {
         for(int j = 0; j < width; j++)
@@ -239,9 +520,9 @@ public class block : MonoBehaviour
         return true;
     }
     private SoundEffect sfx;
+    
     public void DeleteLine(int i)
-    {
-        
+    {        
         for(int j = 0; j<width; j++)
         {
             Destroy(grid[j, i].gameObject);            
@@ -250,12 +531,51 @@ public class block : MonoBehaviour
             {
                 sfx.PlaySFX_DMG();
                 playSFXDmg = true;
-                boss.TakeDamage(0.1f); // Gantilah damageAmount dengan jumlah kerusakan yang sesuai.
+                if (!SkillChar.instance.isUpScore)
+                {
+                    GameFlow.pointScore += 13;
+                }
+                else
+                {
+                    GameFlow.pointScore += 16;
+                }
+
+                if (!SkillChar.isDMGBuffed)
+                {
+                    boss.TakeDamage(0.1f, 1); // Damage Deal
+                }
+                else
+                {
+                    boss.TakeDamage(0.1f, 2.4f); // Damage Deal                    
+                }
+                if (manaManager != null)
+                {
+                    manaManager.IncreaseMana(2.85f);
+                }
             }else if(enemy != null)
             {
                 sfx.PlaySFX_DMG();
                 playSFXDmg = true;
-                enemy.TakeDamage(0.1f);
+                if (!SkillChar.instance.isUpScore)
+                {
+                    GameFlow.pointScore += 11;
+                }
+                else
+                {
+                    GameFlow.pointScore += 12;
+                }
+                if (!SkillChar.isDMGBuffed)
+                {
+                    enemy.TakeDamage(0.1f, 1);
+                }
+                else
+                {
+                    enemy.TakeDamage(0.1f, 2.3f);
+                }
+                if (manaManager != null)
+                {
+                    manaManager.IncreaseMana(2.5f);
+                }
             }
             else
             {
@@ -290,14 +610,32 @@ public class block : MonoBehaviour
             if (roundedX >= 0 && roundedX < 10 && roundedY >= 0 && roundedY < 12)
             {
                 grid[roundedX, roundedY] = children;
-                Debug.Log("X = " + roundedX + " Y = " + roundedY);
+                //Debug.Log("X = " + roundedX + " Y = " + roundedY);
                 sfx.PlaySFX_Hit();
+                    if (!SkillChar.instance.isUpScore)
+                    {
+                        GameFlow.pointScore += 1;
+                    }
+                    else
+                    {
+                        GameFlow.pointScore += 2;
+                    }
+                
                 Vector3 effectSpawnPosition = new Vector3(roundedX, roundedY - 0.5f, 100);
                 SpawnEffect(true, effectSpawnPosition);
+                if (manaManager != null)
+                {
+                    manaManager.IncreaseMana(0.175f);
+                }
+                //else
+                //{
+                //    Debug.Log("Survival Mode");
+                //}
             }
             else
             {
-                    GameFlow.instance.isPlayerLose = true;               
+                    //GameFlow.instance.isPlayerLose = true;
+                GameFlow.instance.OpenLosePanel();
             }
                 //grid[roundedX, roundedY] = children;
         }
@@ -310,10 +648,21 @@ public class block : MonoBehaviour
         {
             int roundedX = Mathf.RoundToInt(children.transform.position.x);
             int roundedY = Mathf.RoundToInt(children.transform.position.y);
-            if (roundedX < 0 || roundedX >= width || roundedY < 0 || roundedY >= height)
+            if (!isBlockSide)
             {
-                //Debug.Log("Current PosX :" + transform.position);
-                return false;
+                if (roundedX < 0 || roundedX >= width || roundedY < 0 || roundedY >= height)
+                {
+                    //Debug.Log("Current PosX :" + transform.position);
+                    return false;
+                }
+            }
+            else
+            {
+                if (roundedX < 1 || roundedX >= width-1 || roundedY < 0 || roundedY >= height)
+                {
+                    //Debug.Log("Current PosX :" + transform.position);
+                    return false;
+                }
             }
             if(grid[roundedX, roundedY] != null)
             {

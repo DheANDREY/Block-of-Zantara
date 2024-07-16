@@ -21,14 +21,15 @@ public class AnimatorEnemy : MonoBehaviour
     }
     public GameObject EffectSkill; 
     private GameObject prefabSkill;
+    [SerializeField]private Transform posEffect;
     public void PlayAnimAtk(bool isAnimAttack)
     {
         
         if (isAnimAttack)
         {
             animator.SetBool("AnimAttack", true);
-            prefabSkill = Instantiate(EffectSkill, new Vector3(6.612f, 15.69f, 0), Quaternion.identity);
-            prefabSkill.transform.SetParent(transform);
+            prefabSkill = Instantiate(EffectSkill, new Vector3(6.612f, 15.69f, 0), Quaternion.identity)as GameObject;
+            prefabSkill.transform.SetParent(posEffect);
         }
         else
         {

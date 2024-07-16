@@ -7,6 +7,7 @@ public class EnemyController : MonoBehaviour
     public float maxHP = 10.0f;
     private float currentHP;
     private EnemyBosSystem TB;
+    private SurvivalEnemyBoss SEB;
     public GameObject vfxDie;
 
     private static EnemyController instance;
@@ -18,6 +19,7 @@ public class EnemyController : MonoBehaviour
     private void Start()
     {
         TB = GetComponent<EnemyBosSystem>();
+        SEB = GameObject.FindObjectOfType<SurvivalEnemyBoss>();
 
         currentHP = maxHP;
         HpEnemyManager.instance.SetMaxHP(maxHP); // Atur nilai maksimum HP di UI Health Bar
@@ -27,12 +29,16 @@ public class EnemyController : MonoBehaviour
     {
         if (currentHP < (maxHP * 0.75) && !isSkill1_Actived)
         {
+            MovementText.instance.StartMove(0);
             ActivateSelectedSkill(skill1);
+            //Debug.Log("Skill1 Active: " + skill1);
             isSkill1_Actived = true;
         }
         else if (currentHP < (maxHP * 0.35) && !isSkill2_Actived)
         {
+            MovementText.instance.StartMove(1);
             ActivateSelectedSkill(skill2);
+            //Debug.Log("Skill2 Active: " + skill2);
             isSkill2_Actived = true;
         }
         else
@@ -44,7 +50,8 @@ public class EnemyController : MonoBehaviour
         {
             //Debug.Log("coba");
             //AnimatorBoss.instance.PlayAnimDie();
-            PlayVFXDie();
+            Invoke("PlayVFXDie", .5f);
+            //PlayVFXDie();
             Invoke("EnemyDie", 1.75f);
         }
     }
@@ -52,7 +59,7 @@ public class EnemyController : MonoBehaviour
     public Transform posEnemy;
     private void PlayVFXDie()
     {
-        GameObject prefabSFX = Instantiate(vfxDie, new Vector3(6.61f, 16.71f, -10f), Quaternion.identity) as GameObject;
+        GameObject prefabSFX = Instantiate(vfxDie, posEnemy.position, Quaternion.identity) as GameObject;
         //ParticleSystem particleSystem = prefabSFX.GetComponent<ParticleSystem>();
         //if (particleSystem != null)
         //{
@@ -69,18 +76,28 @@ public class EnemyController : MonoBehaviour
         //GameFlow.instance.OpenWinPanel();
         isSkill1_Actived = false; isSkill2_Actived = false;
         SkillBoss1.instance.ResetAllSkill();
-        Destroy(gameObject);        
-        EnemyBosSystem.instance.isChangeEnemy = true;
+        Destroy(gameObject);
+        if (SEB != null)
+        {
+            Debug.Log("1Survival, isChangeEnemy:" + SurvivalEnemyBoss.instance.isChangeEnemy);
+            SurvivalEnemyBoss.instance.isChangeEnemy = true;
+            Debug.Log("2Survival, isChangeEnemy:" + SurvivalEnemyBoss.instance.isChangeEnemy);
+        }
+        else
+        {
+            //Debug.Log("EBS");            
+            EnemyBosSystem.instance.isChangeEnemy = true;
+        }
     }
-    public void TakeDamage(float damage)
+    public void TakeDamage(float damage,float buff)
     {
-        currentHP -= damage;
+        currentHP -= damage*buff;
         HpEnemyManager.instance.SetCurrentHP(currentHP); // Perbarui UI Health Bar setelah menerima kerusakan
     }
 
     public SkillBoss1 skillBos;
     [SerializeField]
-    private BossSkillType skill1, skill2;
+    public BossSkillType skill1, skill2;
     public bool isSkill1_Actived, isSkill2_Actived;
     public void ActivateSelectedSkill(BossSkillType skillType)
     {
@@ -90,7 +107,7 @@ public class EnemyController : MonoBehaviour
                 skillBos.BoostFallBlock();
                 break;
             case BossSkillType.HealHP:
-                skillBos.HealHP(3.5f);
+                skillBos.HealHP(3.5f*0.55f,12);
                 break;
             case BossSkillType.FreezeMove:
                 skillBos.FreezeMove();
@@ -103,6 +120,21 @@ public class EnemyController : MonoBehaviour
                 break;
             case BossSkillType.Smoke:
                 skillBos.SpawnSmokeNextMove();
+                break;
+            case BossSkillType.SideBlocker:
+                skillBos.SpawnSideBlocker();
+                break;
+            case BossSkillType.DoubleSideMove:
+                skillBos.DoubleMoveBlocks();
+                break;
+            case BossSkillType.BlackHole:
+                skillBos.BlackHoleMove();
+                break;
+            case BossSkillType.LimitMove:
+                skillBos.LimitMoveBlock();
+                break;
+            case BossSkillType.LimitRotate:
+                skillBos.LimitRotateBlock();
                 break;
         }
     }

@@ -15,6 +15,7 @@ public class EnemyBosSystem : MonoBehaviour
     private BosQueue BQ;
     private BossController boss;
     private EnemyController minion;
+    [SerializeField]private GameFlow gameFlow;
     private void Start()
     {
         //Debug.Log(SelectArcMode.instance.selectedLevel);
@@ -38,7 +39,21 @@ public class EnemyBosSystem : MonoBehaviour
 
         GameObject prefabSpawned = Instantiate(BQ.enemy[enemyIndex], transform.position, Quaternion.identity);
         prefabSpawned.transform.SetParent(transform);
-    }
+        if (enemyIndex == BQ.enemy.Length - 1)
+        {
+            if (boss != null)
+            {
+                AudioFile_Handler.instance.PlayBGM_Main(false);
+                AudioFile_Handler.instance.PlayBGM_Boss(true);
+            }
+            else if (minion != null)
+            {
+                AudioFile_Handler.instance.PlayBGM_Boss(false);
+                AudioFile_Handler.instance.PlayBGM_Main(true);                
+            }
+
+        }
+    }    
 
     private void NextEnemy()
     {
@@ -51,22 +66,12 @@ public class EnemyBosSystem : MonoBehaviour
                 //enemyIndex = -1;
                 SpawnEnemy();
                 isChangeEnemy = false;
-                if (enemyIndex == BQ.enemy.Length - 1)
-                {
-                    if (boss != null)
-                    {
-                        AudioFile_Handler.instance.PlayBGM_Utama(false);
-                        AudioFile_Handler.instance.PlayBGM_Boss(true);
-                    }
-                    else if (minion != null)
-                    {
-                        Debug.Log("Tetap Music Utama");
-                    }
-                    
-                }
+                
             }
             else
             {
+                //Debug.Log("WinPanel from EnemyBosSystem");
+
                 GameFlow.instance.OpenWinPanel();
             }
             //Debug.Log(randomIndex);

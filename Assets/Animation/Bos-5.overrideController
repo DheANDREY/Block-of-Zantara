@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Bos-5
+  m_Controller: {fileID: 9100000, guid: 8bd47ee868298664d83520168274e394, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 61cd5e8c40682cf4599809887a5f8a5a, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 737b5c4780675e14d948890c516dca75, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 05774a4ca79cd0c4199d9ef2c7925842, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 889122d0af5d1474d86eee09d781c38f, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 405dd275f7e81744cbb8795cde9776d6, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 3162db112d2b9c24f8895815075b3a67, type: 2}

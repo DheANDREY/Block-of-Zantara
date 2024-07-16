@@ -49,7 +49,7 @@ public class TEST_Boss : MonoBehaviour
                 isChangeEnemy = false;
                 if(enemyIndex == BQ.enemy.Length - 1)
                 {
-                    AudioFile_Handler.instance.PlayBGM_Utama(false);
+                    AudioFile_Handler.instance.PlayBGM_Main(false);
                     AudioFile_Handler.instance.PlayBGM_Boss(true);
                 }
             }
